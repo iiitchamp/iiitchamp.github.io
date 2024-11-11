@@ -168,6 +168,14 @@
       border-radius: 5px;
       margin-bottom: 5px;
     }
+    /* Responsive iframe styling */
+    .google-form iframe {
+      width: 100%;
+      height: 600px;
+      border: none;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
   </style>
 </head>
 <body>
@@ -215,18 +223,22 @@
   <!-- Contact Section -->
   <section id="contact">
     <h2>Contact Me</h2>
-    <form>
+    <!--<form>
       <input type="text" name="name" placeholder="Your Name" required>
       <input type="email" name="email" placeholder="Your Email" required>
       <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
       <button type="submit">Send Message</button>
     </form>
+    -->
+    <p>Please fill out the form below to get in touch. I will respond as soon as possible.</p>
+    <div class="google-form">
     <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSe872tgildnDmekn5_1xmhp2_DBqKknuj0y4jQPDNR8QIFVIw/viewform?embedded=true" width="640" height="856" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+    </div>
   </section>
 
   <!-- Footer -->
   <footer>
-    <p>&copy; 2024 Rajesh Kumar. All Rights Reserved.</p>
+    <p>&copy; 2015 - 2024 Rajesh Kumar. All Rights Reserved.</p>
     <p>Follow me on social media:</p>
     <div class="footer-social">
       <a href="https://www.facebook.com/profile.php?id=100037947527727"><img src="./fb.jpg" alt="Facebook"><span>Facebook</span></a>
