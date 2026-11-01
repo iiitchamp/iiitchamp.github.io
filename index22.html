@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Rajesh Kumar — Lead Data Engineer. 6+ years across Azure, AWS, GCP. Career counselling, freelance data engineering, and tech consultation.">
+  <title>Rajesh Kumar — Lead Data Engineer & Consultant</title>
+  <style>
+    /* ============================================================
+       RESET & GLOBAL
+       ============================================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0b0f19;
+      --surface: #111827;
+      --surface-2: #1a2332;
+      --border: #1f2d3d;
+      --text: #e5e7eb;
+      --text-muted: #9ca3af;
+      --accent: #00c9a7;
+      --accent-2: #3b82f6;
+      --accent-gradient: linear-gradient(135deg, #00c9a7, #3b82f6);
+      --radius: 14px;
+      --max-width: 1120px;
+      --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: var(--accent); text-decoration: none; transition: opacity .2s; }
+    a:hover { opacity: .8; }
+    img { max-width: 100%; display: block; }
+    .container { width: 100%; max-width: var(--max-width); margin: 0 auto; padding: 0 1.25rem; }
+    .section { padding: 4rem 0; }
+    .section-title {
+      font-size: clamp(1.5rem, 4vw, 2rem);
+      font-weight: 700;
+      margin-bottom: 2rem;
+      position: relative;
+      display: inline-block;
+    }
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -6px; left: 0;
+      width: 50px; height: 3px;
+      background: var(--accent-gradient);
+      border-radius: 2px;
+    }
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      transition: transform .25s, border-color .25s;
+    }
+    .card:hover { transform: translateY(-3px); border-color: var(--accent); }
+    .tag {
+      display: inline-block;
+      padding: .25rem .75rem;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      font-size: .8rem;
+      color: var(--text-muted);
+      margin: .2rem;
+    }
+    .btn {
+      display: inline-block;
+      padding: .7rem 1.6rem;
+      border-radius: 999px;
+      font-weight: 600;
+      font-size: .95rem;
+      border: none;
+      cursor: pointer;
+      transition: transform .2s, opacity .2s;
+      text-align: center;
+    }
+    .btn:hover { transform: translateY(-2px); opacity: .9; }
+    .btn-primary { background: var(--accent-gradient); color: #0b0f19; }
+    .btn-outline {
+      background: transparent;
+      border: 1.5px solid var(--accent);
+      color: var(--accent);
+    }
+
+    /* ============================================================
+       NAVBAR
+       ============================================================ */
+    .navbar {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(11, 15, 25, .88);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      display: flex; justify-content: space-between; align-items: center;
+      height: 64px;
+    }
+    .nav-logo { font-weight: 800; font-size: 1.2rem; color: var(--text); letter-spacing: -.5px; }
+    .nav-logo span { color: var(--accent); }
+    .nav-links { display: flex; gap: 1.8rem; list-style: none; }
+    .nav-links a { color: var(--text-muted); font-size: .9rem; font-weight: 500; }
+    .nav-links a:hover { color: var(--accent); }
+    .nav-toggle { display: none; background: none; border: none; color: var(--text); font-size: 1.6rem; cursor: pointer; }
+
+    @media (max-width: 860px) {
+      .nav-toggle { display: block; }
+      .nav-links {
+        position: absolute; top: 64px; left: 0; right: 0;
+        flex-direction: column; gap: 1rem;
+        background: var(--surface); border-bottom: 1px solid var(--border);
+        padding: 1.5rem; display: none;
+      }
+      .nav-links.open { display: flex; }
+    }
+
+    /* ============================================================
+       HERO
+       ============================================================ */
+    .hero {
+      min-height: 100vh;
+      display: flex; align-items: center;
+      position: relative; overflow: hidden;
+      padding: 4rem 0;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; top: -30%; right: -15%;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(0,201,167,.12), transparent 70%);
+      border-radius: 50%; pointer-events: none;
+    }
+    .hero-grid {
+      display: grid; grid-template-columns: 1.4fr 1fr;
+      gap: 3rem; align-items: center;
+    }
+    .hero-eyebrow {
+      color: var(--accent);
+      font-weight: 600; font-size: .9rem;
+      text-transform: uppercase; letter-spacing: 1.5px;
+      margin-bottom: .8rem;
+    }
+    .hero h1 {
+      font-size: clamp(2.2rem, 6vw, 3.8rem);
+      font-weight: 800; line-height: 1.1;
+      letter-spacing: -1.5px;
+      margin-bottom: 1rem;
+    }
+    .hero h1 span {
+      background: var(--accent-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .hero-sub {
+      color: var(--text-muted);
+      font-size: clamp(.95rem, 2vw, 1.1rem);
+      max-width: 540px; margin-bottom: 2rem;
+    }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: .8rem; }
+    .hero-meta {
+      margin-top: 2.5rem;
+      display: flex; flex-wrap: wrap; gap: 1.5rem;
+      color: var(--text-muted); font-size: .85rem;
+    }
+    .hero-meta strong { color: var(--text); }
+
+    .hero-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2rem;
+      text-align: center;
+    }
+    .hero-card .avatar {
+      width: 110px; height: 110px;
+      border-radius: 50%;
+      background: var(--accent-gradient);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2.8rem; font-weight: 800; color: #0b0f19;
+      margin: 0 auto 1.2rem;
+    }
+    .hero-card h3 { font-size: 1.2rem; margin-bottom: .3rem; }
+    .hero-card p { color: var(--text-muted); font-size: .9rem; }
+
+    @media (max-width: 768px) {
+      .hero-grid { grid-template-columns: 1fr; text-align: center; }
+      .hero-sub { margin-left: auto; margin-right: auto; }
+      .hero-actions { justify-content: center; }
+      .hero-meta { justify-content: center; }
+      .hero-card { max-width: 320px; margin: 0 auto; }
+    }
+
+    /* ============================================================
+       ABOUT
+       ============================================================ */
+    .about-grid {
+      display: grid; grid-template-columns: 1.3fr 1fr;
+      gap: 2rem; align-items: start;
+    }
+    .about-text { color: var(--text-muted); font-size: .98rem; line-height: 1.8; }
+    .about-text strong { color: var(--text); }
+    .about-stats {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    .stat-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.3rem;
+      text-align: center;
+    }
+    .stat-card .num {
+      font-size: 1.8rem; font-weight: 800;
+      background: var(--accent-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .stat-card .label { font-size: .8rem; color: var(--text-muted); margin-top: .3rem; }
+
+    @media (max-width: 768px) {
+      .about-grid { grid-template-columns: 1fr; }
+      .about-stats { grid-template-columns: 1fr 1fr; }
+    }
+
+    /* ============================================================
+       EXPERIENCE TIMELINE
+       ============================================================ */
+    .timeline { position: relative; padding-left: 2rem; }
+    .timeline::before {
+      content: '';
+      position: absolute; left: 7px; top: 0; bottom: 0;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--accent), var(--accent-2), transparent);
+    }
+    .timeline-item {
+      position: relative;
+      margin-bottom: 2.2rem;
+    }
+    .timeline-item::before {
+      content: '';
+      position: absolute; left: -2rem; top: .35rem;
+      width: 16px; height: 16px;
+      border-radius: 50%;
+      background: var(--accent);
+      border: 3px solid var(--bg);
+      box-shadow: 0 0 0 3px var(--accent);
+    }
+    .timeline-item .meta {
+      font-size: .8rem; color: var(--accent);
+      font-weight: 600; margin-bottom: .2rem;
+      letter-spacing: .5px;
+    }
+    .timeline-item h3 { font-size: 1.1rem; margin-bottom: .2rem; }
+    .timeline-item .company {
+      color: var(--text-muted); font-size: .88rem;
+      font-weight: 500; margin-bottom: .6rem;
+    }
+    .timeline-item p { color: var(--text-muted); font-size: .9rem; }
+
+    /* ============================================================
+       SKILLS
+       ============================================================ */
+    .skills-groups {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.2rem;
+    }
+    .skill-group h3 {
+      font-size: .95rem; margin-bottom: .8rem;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: .5px;
+    }
+    .skill-group .tags { display: flex; flex-wrap: wrap; gap: .1rem; }
+
+    /* ============================================================
+       EDUCATION / CERTS / PUBS
+       ============================================================ */
+    .edu-grid, .pub-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.2rem;
+    }
+    .edu-item h3 { font-size: 1rem; margin-bottom: .2rem; }
+    .edu-item .inst { color: var(--text-muted); font-size: .85rem; }
+    .edu-item .year { color: var(--accent); font-size: .8rem; font-weight: 600; margin-top: .3rem; }
+
+    .cert-list { display: flex; flex-wrap: wrap; gap: .3rem; }
+
+    .pub-item { margin-bottom: 1rem; }
+    .pub-item h3 { font-size: .95rem; margin-bottom: .2rem; }
+    .pub-item .venue { color: var(--text-muted); font-size: .82rem; }
+
+    /* ============================================================
+       SERVICES
+       ============================================================ */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+    .service-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.8rem;
+      display: flex; flex-direction: column;
+      transition: transform .25s, border-color .25s;
+    }
+    .service-card:hover { transform: translateY(-5px); border-color: var(--accent); }
+    .service-icon { font-size: 2rem; margin-bottom: 1rem; }
+    .service-card h3 { font-size: 1.1rem; margin-bottom: .5rem; }
+    .service-card p { color: var(--text-muted); font-size: .9rem; flex: 1; margin-bottom: 1.2rem; }
+    .service-card .price {
+      font-size: .85rem; color: var(--accent);
+      font-weight: 600; margin-bottom: .8rem;
+    }
+    .service-card .btn { width: 100%; }
+
+    .topmate-banner {
+      margin-top: 2rem;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      display: flex; flex-wrap: wrap;
+      justify-content: space-between; align-items: center;
+      gap: 1rem;
+    }
+    .topmate-banner p { color: var(--text-muted); font-size: .9rem; }
+
+    /* ============================================================
+       FORMS
+       ============================================================ */
+    .form-wrapper {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      align-items: start;
+    }
+    .form-panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.8rem;
+    }
+    .form-panel h3 { font-size: 1.1rem; margin-bottom: .3rem; }
+    .form-panel .sub { color: var(--text-muted); font-size: .85rem; margin-bottom: 1.5rem; }
+
+    .form-group { margin-bottom: 1rem; }
+    .form-group label {
+      display: block; font-size: .82rem;
+      font-weight: 600; margin-bottom: .35rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: .4px;
+    }
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: .75rem 1rem;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-family: var(--font);
+      font-size: .92rem;
+      outline: none;
+      transition: border-color .2s;
+    }
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus { border-color: var(--accent); }
+    .form-group textarea { resize: vertical; min-height: 100px; }
+    .form-group select { appearance: none; cursor: pointer; }
+    .form-note { font-size: .78rem; color: var(--text-muted); margin-top: .8rem; }
+
+    @media (max-width: 768px) {
+      .form-wrapper { grid-template-columns: 1fr; }
+    }
+
+    /* ============================================================
+       FOOTER
+       ============================================================ */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2.5rem 0;
+      text-align: center;
+    }
+    footer p { color: var(--text-muted); font-size: .85rem; }
+    .footer-links {
+      display: flex; flex-wrap: wrap;
+      justify-content: center; gap: 1.5rem;
+      margin-bottom: 1rem;
+    }
+    .footer-links a { color: var(--text-muted); font-size: .85rem; }
+    .footer-links a:hover { color: var(--accent); }
+
+    /* ============================================================
+       SCROLL REVEAL
+       ============================================================ */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity .6s ease, transform .6s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ============================================================
+       UTILITY
+       ============================================================ */
+    .text-accent { color: var(--accent); }
+    .mt-2 { margin-top: 2rem; }
+    .mb-2 { margin-bottom: 2rem; }
+    .sr-only {
+      position: absolute; width: 1px; height: 1px;
+      padding: 0; margin: -1px; overflow: hidden;
+      clip: rect(0,0,0,0); border: 0;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar" aria-label="Main navigation">
+    <div class="container nav-inner">
+      <a href="#top" class="nav-logo">Rajesh<span>.</span></a>
+      <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#education">Education</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#inquiry">Inquiry</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header class="hero" id="top">
+    <div class="container hero-grid">
+      <div>
+        <p class="hero-eyebrow">Lead Data Engineer · Consultant · Career Coach</p>
+        <h1>Hi, I'm <span>Rajesh Kumar</span>.</h1>
+        <p class="hero-sub">
+          Results-driven Data Engineer with 6+ years of experience building scalable, end-to-end data solutions across Azure, AWS, and GCP. I also help professionals transition into data careers and consult on freelance data projects.
+        </p>
+        <div class="hero-actions">
+          <a href="#services" class="btn btn-primary">Explore Services</a>
+          <a href="#inquiry" class="btn btn-outline">Start a Project Inquiry</a>
+        </div>
+        <div class="hero-meta">
+          <span>📞 <strong>+91 7705920756</strong></span>
+          <span>✉️ <strong>notify2rajesh@gmail.com</strong></span>
+          <span>📍 <strong>Sonbhadra, UP, India</strong></span>
+        </div>
+      </div>
+      <div class="hero-card">
+        <div class="avatar">RK</div>
+        <h3>Rajesh Kumar</h3>
+        <p>Lead Data Engineer @ MasterCard</p>
+        <p style="margin-top:.6rem;font-size:.82rem;">Snowflake · Databricks · PySpark · Kafka · Azure · AWS · GCP</p>
+        <div style="margin-top:1rem;display:flex;gap:.5rem;justify-content:center;flex-wrap:wrap;">
+          <a href="https://github.com/iiitchamp" target="_blank" rel="noopener" class="tag">GitHub</a>
+          <a href="https://linkedin.com/in/krajesh07" target="_blank" rel="noopener" class="tag">LinkedIn</a>
+          <a href="https://topmate.io/krajesh" target="_blank" rel="noopener" class="tag">Topmate</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ABOUT -->
+  <section class="section" id="about">
+    <div class="container">
+      <h2 class="section-title reveal">About Me</h2>
+      <div class="about-grid">
+        <div class="about-text reveal">
+          <p>
+            I am a <strong>Lead Data Engineer at MasterCard</strong> with a proven track record of designing and delivering enterprise-grade data platforms. My expertise spans the full modern data stack — from cloud data warehousing (<strong>Snowflake, Redshift</strong>) and big data processing (<strong>PySpark, Scala, Databricks</strong>) to orchestration (<strong>ADF, Airflow</strong>) and real-time streaming (<strong>Kafka, Structured Streaming</strong>).
+          </p>
+          <p style="margin-top:1rem;">
+            Beyond engineering, I am deeply passionate about <strong>knowledge sharing and career mentorship</strong>. I have guided dozens of professionals into data engineering roles through structured counselling, interview preparation, and resume optimization. I also take on selective freelance consulting projects where I can add measurable value to data-driven organizations.
+          </p>
+        </div>
+        <div class="about-stats reveal">
+          <div class="stat-card"><div class="num">6+</div><div class="label">Years Experience</div></div>
+          <div class="stat-card"><div class="num">3</div><div class="label">Cloud Platforms</div></div>
+          <div class="stat-card"><div class="num">4</div><div class="label">IEEE Publications</div></div>
+          <div class="stat-card"><div class="num">30+</div><div class="label">Team Members Led</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section class="section" id="experience">
+    <div class="container">
+      <h2 class="section-title reveal">Professional Experience</h2>
+      <div class="timeline reveal">
+        <div class="timeline-item">
+          <div class="meta">Jun 2026 – Present</div>
+          <h3>Lead Data Engineer</h3>
+          <div class="company">MasterCard (via Quesscorp) · Sonbhadra / Remote</div>
+          <p>Architected a trust intelligence framework integrating TrueBiz and RiskRecon data to generate merchant risk insights. Led cross-functional teams across Data Engineering, Data Science, Product, QA, and external vendors. Built scalable pipelines and inference workflows using Databricks on AWS, MLflow, and Mosaic AI. Developed REST-based inference endpoints integrated with Mastercard's legacy MATCH platform.</p>
+        </div>
+        <div class="timeline-item">
+          <div class="meta">Jun 2025 – May 2026</div>
+          <h3>Senior Data Engineer II</h3>
+          <div class="company">Syneos Health (via KPI Partners) · Remote</div>
+          <p>Led 20 data engineers and 10 analysts in designing enterprise-grade pipelines on Azure Data Lake Gen2, Databricks, and Snowflake. Implemented real-time Kafka/Structured Streaming pipelines for telematics and IoT use cases. Championed cost optimization across ADF, Databricks, and ADLS. Hands-on with GenAI, Agentic AI, Terraform, dbt tests, and AWS Lambda/Glue.</p>
+        </div>
+        <div class="timeline-item">
+          <div class="meta">Sep 2024 – Mar 2025</div>
+          <h3>Senior Data Engineer</h3>
+          <div class="company">Gartner (via Bitwise Solutions) · Remote</div>
+          <p>Built ETL pipelines with ADF, developed Databricks workflows using PySpark and SQL, and implemented CI/CD pipelines. Automated alerts via Azure Logic Apps and managed Snowflake integration for data warehousing.</p>
+        </div>
+        <div class="timeline-item">
+          <div class="meta">Jul 2022 – Sep 2024</div>
+          <h3>Data Engineer</h3>
+          <div class="company">McKesson (via Tech Mahindra) · Remote</div>
+          <p>Responsible for scalable data storage on ADLS Gen2, ETL pipelines with ADF, Databricks processing with PySpark, and Snowflake integration. Also worked as AWS Data Engineer on Glue, Lambda, Kinesis, Redshift, and Azkaban orchestration.</p>
+        </div>
+        <div class="timeline-item">
+          <div class="meta">Feb 2022 – Jul 2022</div>
+          <h3>Python Developer (Intern)</h3>
+          <div class="company">Tech Mahindra · Remote</div>
+          <p>Developed automation scripts in Python, built ETL pipelines, and created Power BI dashboards. Migrated 20+ client projects and received multiple client appreciations.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section class="section" id="skills">
+    <div class="container">
+      <h2 class="section-title reveal">Technical Skills</h2>
+      <div class="skills-groups reveal">
+        <div class="skill-group">
+          <h3>Languages & Frameworks</h3>
+          <div class="tags">
+            <span class="tag">Python</span><span class="tag">Scala</span><span class="tag">Java</span><span class="tag">SQL</span><span class="tag">Flask</span><span class="tag">Django</span><span class="tag">PySpark</span><span class="tag">Pandas</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h3>Big Data & Streaming</h3>
+          <div class="tags">
+            <span class="tag">Apache Spark</span><span class="tag">Kafka</span><span class="tag">Structured Streaming</span><span class="tag">Hive</span><span class="tag">Hadoop</span><span class="tag">Databricks</span><span class="tag">Kinesis</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h3>Cloud Platforms</h3>
+          <div class="tags">
+            <span class="tag">Azure (ADLS, ADF, Databricks, Logic Apps)</span><span class="tag">AWS (S3, Redshift, Glue, Lambda, Kinesis)</span><span class="tag">GCP</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h3>Databases & Warehousing</h3>
+          <div class="tags">
+            <span class="tag">Snowflake</span><span class="tag">Redshift</span><span class="tag">MySQL</span><span class="tag">Cassandra</span><span class="tag">DynamoDB</span><span class="tag">SQL Server</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h3>DevOps & Tools</h3>
+          <div class="tags">
+            <span class="tag">Git</span><span class="tag">CI/CD</span><span class="tag">Jenkins</span><span class="tag">Azkaban</span><span class="tag">Airflow</span><span class="tag">Docker</span><span class="tag">Terraform</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h3>BI & Visualization</h3>
+          <div class="tags">
+            <span class="tag">Tableau</span><span class="tag">Power BI</span><span class="tag">MicroStrategy</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section class="section" id="education">
+    <div class="container">
+      <h2 class="section-title reveal">Education & Certifications</h2>
+      <div class="edu-grid reveal">
+        <div class="card edu-item">
+          <h3>Doctor of Business Administration (DBA) — AI/ML</h3>
+          <div class="inst">Rushford Business School, Switzerland</div>
+          <div class="year">2026 – Present</div>
+        </div>
+        <div class="card edu-item">
+          <h3>M.Tech (IT)</h3>
+          <div class="inst">NIT Raipur</div>
+          <div class="year">2020 – 2022 · 7.80 CGPA</div>
+        </div>
+        <div class="card edu-item">
+          <h3>B.Tech (CSE)</h3>
+          <div class="inst">IIIT Senapati, Manipur</div>
+          <div class="year">2015 – 2019 · 6.33 CGPA</div>
+        </div>
+      </div>
+
+      <h3 style="margin-top:2.5rem;margin-bottom:1rem;font-size:1rem;" class="reveal">Selected Certifications</h3>
+      <div class="cert-list reveal">
+        <span class="tag">Flask Python</span><span class="tag">Spark: PySpark</span><span class="tag">Kafka Basics</span><span class="tag">Databricks</span><span class="tag">Data Science Foundations</span><span class="tag">Hadoop: MapReduce</span><span class="tag">Machine Learning using Python</span><span class="tag">Cloud Computing</span><span class="tag">Django</span><span class="tag">SQL & Analytics</span>
+      </div>
+
+      <h3 style="margin-top:2.5rem;margin-bottom:1rem;font-size:1rem;" class="reveal">Publications & Achievements</h3>
+      <div class="pub-grid reveal">
+        <div class="card pub-item">
+          <h3>Use of Hybrid ECC to Enhance Security and Privacy with Data Deduplication</h3>
+          <div class="venue">IEEE ICESC 2021 · DOI: 10.1109/ICESC51422.2021.9532948</div>
+        </div>
+        <div class="card pub-item">
+          <h3>Palm Print Recognition and Authentication Using Digital Image Processing</h3>
+          <div class="venue">IJCRT, Vol. 9, Issue 12 · DOI: 10.5281/zenodo.5822560</div>
+        </div>
+        <div class="card pub-item">
+          <h3>A Case Study on Software Defect Prediction</h3>
+          <div class="venue">IRJET, Vol. 8, Issue 12 · DOI: 10.13140/RG.2.2.27691.36642</div>
+        </div>
+        <div class="card pub-item">
+          <h3>Hybrid Consensus Approach for Blockchain-Based Vehicular Communication</h3>
+          <div class="venue">IEEE ICPCT 2022</div>
+        </div>
+      </div>
+      <p style="margin-top:1rem;color:var(--text-muted);font-size:.85rem;" class="reveal">
+        🏅 Best Athlete (NIT Raipur, 3×) · 8 Gold, 5 Silver, 3 Bronze Medals · 6 National Marathons · Best Scout (2011)
+      </p>
+    </div>
+  </section>
+
+  <!-- SERVICES / CONSULTATION SEGMENTS -->
+  <section class="section" id="services">
+    <div class="container">
+      <h2 class="section-title reveal">Services & Consultation</h2>
+      <p style="color:var(--text-muted);margin-bottom:2rem;max-width:680px;" class="reveal">
+        Whether you are an individual looking to break into data engineering or an organization seeking expert freelance support, choose the engagement that fits your needs. Paid sessions are booked securely through <strong>Topmate</strong>; custom project inquiries are submitted via the form below.
+      </p>
+
+      <div class="services-grid">
+        <!-- Career Counselling -->
+        <div class="service-card reveal">
+          <div class="service-icon">🎯</div>
+          <h3>Career Counselling & Job Guidance</h3>
+          <p>Personalized roadmap for transitioning into Data Engineering or Data Analytics. Includes skill gap analysis, project recommendations, and a 30-day action plan.</p>
+          <div class="price">via Topmate · 1:1 Video Session</div>
+          <a href="https://topmate.io/krajesh/1479673" target="_blank" rel="noopener" class="btn btn-primary">Book on Topmate</a>
+        </div>
+
+        <!-- Mock Interview -->
+        <div class="service-card reveal">
+          <div class="service-icon">🎤</div>
+          <h3>Mock Data Engineering Interview</h3>
+          <p>Realistic 45-minute mock interview covering SQL, PySpark, system design, and behavioral rounds. Detailed feedback and improvement report included.</p>
+          <div class="price">via Topmate · 45 mins</div>
+          <a href="https://topmate.io/krajesh/1514021/pay" target="_blank" rel="noopener" class="btn btn-primary">Book on Topmate</a>
+        </div>
+
+        <!-- Resume / CV -->
+        <div class="service-card reveal">
+          <div class="service-icon">📄</div>
+          <h3>ATS-Optimized Resume & CV</h3>
+          <p>Long-format and one-page ATS-optimized CV tailored for Data Engineering and Data Analytics roles. Includes LinkedIn profile overhaul guidance.</p>
+          <div class="price">via Topmate · Digital Product + Review</div>
+          <a href="https://topmate.io/krajesh/1479814" target="_blank" rel="noopener" class="btn btn-primary">Get on Topmate</a>
+        </div>
+
+        <!-- Freelance Data Engineering -->
+        <div class="service-card reveal">
+          <div class="service-icon">⚙️</div>
+          <h3>Freelance Data Engineering</h3>
+          <p>End-to-end pipeline development, cloud migration, data warehouse design, or real-time streaming implementation for your organization. Scoped per project.</p>
+          <div class="price">Custom quote · Inquiry required</div>
+          <a href="#inquiry" class="btn btn-outline" data-service="freelance">Request a Quote</a>
+        </div>
+
+        <!-- Tech Consultation -->
+        <div class="service-card reveal">
+          <div class="service-icon">🧠</div>
+          <h3>Technical Consultation</h3>
+          <p>Architecture reviews, tool selection (Snowflake vs. Databricks vs. Redshift), performance tuning, or cost-optimization audits for your data stack.</p>
+          <div class="price">Hourly / package · Inquiry required</div>
+          <a href="#inquiry" class="btn btn-outline" data-service="consulting">Request Consultation</a>
+        </div>
+
+        <!-- NGO / Tech Setup -->
+        <div class="service-card reveal">
+          <div class="service-icon">🌱</div>
+          <h3>NGO Setup & Management</h3>
+          <p>End-to-end legal, documentation, and operational support for establishing and managing an NGO. Also includes website and app MVP support.</p>
+          <div class="price">via Topmate · 30 mins · 11-product package</div>
+          <a href="https://topmate.io/krajesh/1479675" target="_blank" rel="noopener" class="btn btn-primary">Book on Topmate</a>
+        </div>
+      </div>
+
+      <div class="topmate-banner reveal">
+        <p>🔗 Browse all services, digital products, and priority DM options on my Topmate profile.</p>
+        <a href="https://topmate.io/krajesh" target="_blank" rel="noopener" class="btn btn-primary">View Full Topmate Profile →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- INQUIRY FORMS -->
+  <section class="section" id="inquiry">
+    <div class="container">
+      <h2 class="section-title reveal">Get in Touch</h2>
+      <p style="color:var(--text-muted);margin-bottom:2rem;max-width:680px;" class="reveal">
+        Use the appropriate form below. For paid 1:1 sessions, please book directly on Topmate. For custom freelance projects or technical consulting, submit an inquiry and I will respond within 2 business days.
+      </p>
+
+      <div class="form-wrapper">
+        <!-- FREELANCE FORM -->
+        <div class="form-panel reveal">
+          <h3>💼 Freelance Project Inquiry</h3>
+          <p class="sub">Tell me about your data engineering or analytics project.</p>
+          <form id="freelanceForm" action="https://formspree.io/f/YOUR_FREELANCE_FORM_ID" method="POST">
+            <input type="hidden" name="_subject" value="Freelance Inquiry — Rajesh Kumar Portfolio">
+            <input type="hidden" name="form_type" value="freelance">
+            <div class="form-group">
+              <label for="f-name">Full Name *</label>
+              <input type="text" id="f-name" name="name" required placeholder="Your name">
+            </div>
+            <div class="form-group">
+              <label for="f-email">Work Email *</label>
+              <input type="email" id="f-email" name="email" required placeholder="you@company.com">
+            </div>
+            <div class="form-group">
+              <label for="f-company">Company / Organization</label>
+              <input type="text" id="f-company" name="company" placeholder="Company name">
+            </div>
+            <div class="form-group">
+              <label for="f-project-type">Project Type *</label>
+              <select id="f-project-type" name="project_type" required>
+                <option value="">Select one</option>
+                <option>ETL / ELT Pipeline Development</option>
+                <option>Cloud Data Warehouse (Snowflake / Redshift)</option>
+                <option>Real-Time Streaming (Kafka / Kinesis)</option>
+                <option>Databricks / PySpark Engineering</option>
+                <option>Data Migration & Architecture</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="f-message">Project Description *</label>
+              <textarea id="f-message" name="message" required placeholder="Describe scope, timeline, and any specific technologies..."></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary" style="width:100%;">Submit Inquiry</button>
+            <p class="form-note">Powered by Formspree. Your details are never shared.</p>
+          </form>
+        </div>
+
+        <!-- TECH CONSULTATION FORM -->
+        <div class="form-panel reveal">
+          <h3>🛠️ Technical Consultation Inquiry</h3>
+          <p class="sub">Request an architecture review, audit, or advisory session.</p>
+          <form id="consultingForm" action="https://formspree.io/f/YOUR_CONSULTING_FORM_ID" method="POST">
+            <input type="hidden" name="_subject" value="Consultation Inquiry — Rajesh Kumar Portfolio">
+            <input type="hidden" name="form_type" value="consulting">
+            <div class="form-group">
+              <label for="c-name">Full Name *</label>
+              <input type="text" id="c-name" name="name" required placeholder="Your name">
+            </div>
+            <div class="form-group">
+              <label for="c-email">Email *</label>
+              <input type="email" id="c-email" name="email" required placeholder="you@email.com">
+            </div>
+            <div class="form-group">
+              <label for="c-area">Consultation Area *</label>
+              <select id="c-area" name="consultation_area" required>
+                <option value="">Select one</option>
+                <option>Data Architecture Review</option>
+                <option>Cloud Cost Optimization</option>
+                <option>Snowflake / Databricks Tooling Strategy</option>
+                <option>Real-Time Streaming Design</option>
+                <option>GenAI / Agentic AI Feasibility</option>
+                <option>Career / Team Mentoring (Corporate)</option>
+                <option>Other Technical Advisory</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="c-context">Current Stack / Context</label>
+              <input type="text" id="c-context" name="current_stack" placeholder="e.g., Azure + Databricks + Snowflake">
+            </div>
+            <div class="form-group">
+              <label for="c-message">What challenge are you facing? *</label>
+              <textarea id="c-message" name="message" required placeholder="Describe the problem, constraints, and desired outcome..."></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary" style="width:100%;">Request Consultation</button>
+            <p class="form-note">Powered by Formspree. Your details are never shared.</p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT / FOOTER -->
+  <footer id="contact">
+    <div class="container">
+      <div class="footer-links">
+        <a href="mailto:notify2rajesh@gmail.com">notify2rajesh@gmail.com</a>
+        <a href="tel:+917705920756">+91 7705920756</a>
+        <a href="https://github.com/iiitchamp" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://linkedin.com/in/krajesh07" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://topmate.io/krajesh" target="_blank" rel="noopener">Topmate</a>
+        <a href="https://iiitchamp.github.io" target="_blank" rel="noopener">iiitchamp.github.io</a>
+      </div>
+      <p>© <span id="year"></span> Rajesh Kumar · Sonbhadra, UP, India</p>
+      <p style="margin-top:.3rem;">Built for GitHub Pages · Fully responsive · Static-site compatible</p>
+    </div>
+  </footer>
+
+  <script>
+    // ============================================================
+    // NAV TOGGLE
+    // ============================================================
+    const navToggle = document.querySelector('.nav-toggle');
+    const navLinks = document.querySelector('.nav-links');
+    navToggle.addEventListener('click', () => {
+      const isOpen = navLinks.classList.toggle('open');
+      navToggle.setAttribute('aria-expanded', isOpen);
+    });
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('open');
+        navToggle.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    // ============================================================
+    // SCROLL REVEAL (IntersectionObserver)
+    // ============================================================
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+      revealEls.forEach(el => observer.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+
+    // ============================================================
+    // SERVICE CARD → FORM PREFILL
+    // ============================================================
+    document.querySelectorAll('[data-service]').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const service = btn.getAttribute('data-service');
+        // Scroll happens natively via href="#inquiry"
+        // Prefill the relevant form's message or focus it
+        setTimeout(() => {
+          if (service === 'freelance') {
+            const field = document.getElementById('f-message');
+            if (field && !field.value) {
+              field.value = 'I would like to discuss a freelance data engineering project. ';
+              field.focus();
+              field.setSelectionRange(field.value.length, field.value.length);
+            }
+          } else if (service === 'consulting') {
+            const field = document.getElementById('c-message');
+            if (field && !field.value) {
+              field.value = 'I would like to request a technical consultation. ';
+              field.focus();
+              field.setSelectionRange(field.value.length, field.value.length);
+            }
+          }
+        }, 400);
+      });
+    });
+
+    // ============================================================
+    // DYNAMIC YEAR
+    // ============================================================
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // ============================================================
+    // FORM SUBMISSION FEEDBACK (optional enhancement)
+    // ============================================================
+    document.querySelectorAll('form').forEach(form => {
+      form.addEventListener('submit', () => {
+        const btn = form.querySelector('button[type="submit"]');
+        if (btn) {
+          btn.textContent = 'Sending…';
+          btn.disabled = true;
+        }
+      });
+    });
+  </script>
+</body>
+</html>
