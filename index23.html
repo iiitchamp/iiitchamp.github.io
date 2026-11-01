@@ -1,0 +1,1311 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Rajesh Kumar — Lead Data Engineer. 6+ years across Azure, AWS, GCP. Career counselling, freelance data engineering, and tech consultation.">
+  <title>Rajesh Kumar — Lead Data Engineer & Consultant</title>
+
+  <!-- Apply saved theme before paint to avoid flash -->
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem('theme') || 'dark';
+        if (!['dark','light','eye'].includes(t)) t = 'dark';
+        document.documentElement.setAttribute('data-theme', t);
+      } catch (e) {}
+    })();
+  </script>
+
+  <style>
+    /* ============================================================
+       THEME TOKENS
+       ============================================================ */
+    :root, [data-theme="dark"] {
+      --bg: #0b0f19;
+      --bg-2: #0e1524;
+      --surface: #111827;
+      --surface-2: #1a2332;
+      --border: #1f2d3d;
+      --text: #e5e7eb;
+      --text-muted: #9ca3af;
+      --accent: #00c9a7;
+      --accent-2: #3b82f6;
+      --accent-gradient: linear-gradient(135deg, #00c9a7, #3b82f6);
+      --glow: rgba(0,201,167,.14);
+      --grid-line: rgba(255,255,255,.035);
+      --avatar-text: #0b0f19;
+      --cursor-dot: #00c9a7;
+      --cursor-ring: rgba(0,201,167,.55);
+      --shadow: 0 10px 40px rgba(0,0,0,.45);
+    }
+    [data-theme="light"] {
+      --bg: #f8fafc;
+      --bg-2: #eef2f7;
+      --surface: #ffffff;
+      --surface-2: #f1f5f9;
+      --border: #e2e8f0;
+      --text: #0f172a;
+      --text-muted: #64748b;
+      --accent: #0891b2;
+      --accent-2: #2563eb;
+      --accent-gradient: linear-gradient(135deg, #0891b2, #2563eb);
+      --glow: rgba(8,145,178,.10);
+      --grid-line: rgba(15,23,42,.04);
+      --avatar-text: #ffffff;
+      --cursor-dot: #0891b2;
+      --cursor-ring: rgba(8,145,178,.45);
+      --shadow: 0 10px 30px rgba(15,23,42,.08);
+    }
+    [data-theme="eye"] {
+      --bg: #e9e3d5;
+      --bg-2: #e2dac8;
+      --surface: #f6f1e5;
+      --surface-2: #ede6d6;
+      --border: #d4cbb8;
+      --text: #3d3528;
+      --text-muted: #6b6353;
+      --accent: #2d8b6f;
+      --accent-2: #4a6fa5;
+      --accent-gradient: linear-gradient(135deg, #2d8b6f, #4a6fa5);
+      --glow: rgba(45,139,111,.14);
+      --grid-line: rgba(61,53,40,.05);
+      --avatar-text: #f6f1e5;
+      --cursor-dot: #2d8b6f;
+      --cursor-ring: rgba(45,139,111,.45);
+      --shadow: 0 8px 24px rgba(61,53,40,.10);
+    }
+
+    /* ============================================================
+       RESET & GLOBAL
+       ============================================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --radius: 14px;
+      --max-width: 1120px;
+      --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      transition: background-color .35s ease, color .35s ease;
+    }
+    /* Animated background grid */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image:
+        linear-gradient(var(--grid-line) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+      z-index: 0;
+      animation: gridShift 40s linear infinite;
+    }
+    @keyframes gridShift {
+      0%   { transform: translate(0, 0); }
+      100% { transform: translate(60px, 60px); }
+    }
+    body > * { position: relative; z-index: 1; }
+
+    a { color: var(--accent); text-decoration: none; transition: opacity .2s; }
+    a:hover { opacity: .85; }
+    img { max-width: 100%; display: block; }
+    .container { width: 100%; max-width: var(--max-width); margin: 0 auto; padding: 0 1.25rem; }
+    .section { padding: 4rem 0; }
+    .section-title {
+      font-size: clamp(1.5rem, 4vw, 2rem);
+      font-weight: 700; margin-bottom: 2rem;
+      position: relative; display: inline-block;
+    }
+    .section-title::after {
+      content: ''; position: absolute; bottom: -6px; left: 0;
+      width: 50px; height: 3px;
+      background: var(--accent-gradient);
+      border-radius: 2px;
+    }
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      box-shadow: var(--shadow);
+      transition: transform .25s, border-color .25s, background-color .35s;
+    }
+    .card:hover { transform: translateY(-3px); border-color: var(--accent); }
+    .tag {
+      display: inline-block;
+      padding: .25rem .75rem;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      font-size: .8rem;
+      color: var(--text-muted);
+      margin: .2rem;
+      transition: background-color .35s, color .2s, border-color .35s;
+    }
+    .tag:hover { color: var(--accent); border-color: var(--accent); }
+    .btn {
+      display: inline-block;
+      padding: .7rem 1.6rem;
+      border-radius: 999px;
+      font-weight: 600; font-size: .95rem;
+      border: none; cursor: pointer;
+      transition: transform .2s, opacity .2s, box-shadow .2s;
+      text-align: center;
+    }
+    .btn:hover { transform: translateY(-2px); opacity: .95; box-shadow: 0 8px 24px var(--glow); }
+    .btn-primary { background: var(--accent-gradient); color: var(--avatar-text); }
+    .btn-outline {
+      background: transparent;
+      border: 1.5px solid var(--accent);
+      color: var(--accent);
+    }
+    .btn-ghost {
+      background: var(--surface-2);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    /* ============================================================
+       CUSTOM CURSOR
+       ============================================================ */
+    .cursor-dot, .cursor-ring {
+      position: fixed; top: 0; left: 0;
+      pointer-events: none;
+      z-index: 9999;
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      transition: opacity .2s;
+      will-change: transform;
+    }
+    .cursor-dot {
+      width: 8px; height: 8px;
+      background: var(--cursor-dot);
+      box-shadow: 0 0 12px var(--cursor-dot);
+    }
+    .cursor-ring {
+      width: 38px; height: 38px;
+      border: 1.5px solid var(--cursor-ring);
+      transition: width .2s, height .2s, border-color .2s, opacity .2s;
+    }
+    .cursor-ring.hovering {
+      width: 60px; height: 60px;
+      border-color: var(--accent);
+    }
+    body.cursor-enabled, body.cursor-enabled a, body.cursor-enabled button {
+      cursor: none;
+    }
+    @media (hover: none), (pointer: coarse) {
+      .cursor-dot, .cursor-ring { display: none !important; }
+      body.cursor-enabled, body.cursor-enabled a, body.cursor-enabled button { cursor: auto; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .cursor-dot, .cursor-ring { display: none !important; }
+      body::before { animation: none; }
+      .reveal { transition: none !important; }
+    }
+
+    /* ============================================================
+       SCROLL PROGRESS
+       ============================================================ */
+    .scroll-progress {
+      position: fixed; top: 0; left: 0;
+      height: 3px; width: 0%;
+      background: var(--accent-gradient);
+      z-index: 200;
+      transition: width .1s linear;
+    }
+
+    /* ============================================================
+       NAVBAR
+       ============================================================ */
+    .navbar {
+      position: sticky; top: 0; z-index: 100;
+      background: color-mix(in srgb, var(--bg) 82%, transparent);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      transition: background-color .35s, border-color .35s;
+    }
+    .nav-inner {
+      display: flex; justify-content: space-between; align-items: center;
+      height: 64px; gap: 1rem;
+    }
+    .nav-logo { font-weight: 800; font-size: 1.2rem; color: var(--text); letter-spacing: -.5px; }
+    .nav-logo span { color: var(--accent); }
+    .nav-links { display: flex; gap: 1.6rem; list-style: none; }
+    .nav-links a { color: var(--text-muted); font-size: .9rem; font-weight: 500; }
+    .nav-links a:hover { color: var(--accent); }
+    .nav-actions { display: flex; align-items: center; gap: .6rem; }
+    .theme-btn {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      color: var(--text);
+      width: 38px; height: 38px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.05rem;
+      cursor: pointer;
+      transition: transform .2s, border-color .2s, background-color .35s;
+    }
+    .theme-btn:hover { transform: rotate(15deg); border-color: var(--accent); }
+    .nav-toggle { display: none; background: none; border: none; color: var(--text); font-size: 1.6rem; cursor: pointer; }
+
+    @media (max-width: 900px) {
+      .nav-toggle { display: block; }
+      .nav-links {
+        position: absolute; top: 64px; left: 0; right: 0;
+        flex-direction: column; gap: 1rem;
+        background: var(--surface); border-bottom: 1px solid var(--border);
+        padding: 1.5rem; display: none;
+        box-shadow: var(--shadow);
+      }
+      .nav-links.open { display: flex; }
+    }
+
+    /* ============================================================
+       HERO
+       ============================================================ */
+    .hero {
+      min-height: 100vh;
+      display: flex; align-items: center;
+      position: relative; overflow: hidden;
+      padding: 4rem 0;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; top: -30%; right: -15%;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, var(--glow), transparent 70%);
+      border-radius: 50%; pointer-events: none;
+      animation: pulseGlow 8s ease-in-out infinite;
+    }
+    @keyframes pulseGlow {
+      0%, 100% { transform: scale(1); opacity: .8; }
+      50%      { transform: scale(1.15); opacity: 1; }
+    }
+    .hero-grid {
+      display: grid; grid-template-columns: 1.4fr 1fr;
+      gap: 3rem; align-items: center;
+    }
+    .hero-eyebrow {
+      color: var(--accent);
+      font-weight: 600; font-size: .9rem;
+      text-transform: uppercase; letter-spacing: 1.5px;
+      margin-bottom: .8rem;
+    }
+    .hero h1 {
+      font-size: clamp(2.2rem, 6vw, 3.8rem);
+      font-weight: 800; line-height: 1.1;
+      letter-spacing: -1.5px;
+      margin-bottom: 1rem;
+    }
+    .hero h1 span {
+      background: var(--accent-gradient);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .hero-sub {
+      color: var(--text-muted);
+      font-size: clamp(.95rem, 2vw, 1.1rem);
+      max-width: 540px; margin-bottom: 2rem;
+    }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: .8rem; }
+    .hero-meta {
+      margin-top: 2.5rem;
+      display: flex; flex-wrap: wrap; gap: 1.5rem;
+      color: var(--text-muted); font-size: .85rem;
+    }
+    .hero-meta a { color: var(--text-muted); }
+    .hero-meta a:hover { color: var(--accent); }
+    .hero-meta strong { color: var(--text); }
+
+    .hero-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2rem;
+      text-align: center;
+      box-shadow: var(--shadow);
+    }
+    .hero-card .avatar {
+      width: 110px; height: 110px;
+      border-radius: 50%;
+      background: var(--accent-gradient);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2.8rem; font-weight: 800; color: var(--avatar-text);
+      margin: 0 auto 1.2rem;
+      box-shadow: 0 8px 30px var(--glow);
+    }
+    .hero-card h3 { font-size: 1.2rem; margin-bottom: .3rem; }
+    .hero-card p { color: var(--text-muted); font-size: .9rem; }
+    .social-row {
+      margin-top: 1.2rem;
+      display: flex; gap: .55rem; justify-content: center; flex-wrap: wrap;
+    }
+    .social-btn {
+      width: 38px; height: 38px;
+      display: inline-flex; align-items: center; justify-content: center;
+      border-radius: 50%;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      transition: transform .2s, color .2s, border-color .2s, background-color .2s;
+    }
+    .social-btn:hover {
+      color: var(--accent);
+      border-color: var(--accent);
+      transform: translateY(-3px);
+    }
+    .social-btn svg { width: 18px; height: 18px; fill: currentColor; }
+
+    @media (max-width: 768px) {
+      .hero-grid { grid-template-columns: 1fr; text-align: center; }
+      .hero-sub { margin-left: auto; margin-right: auto; }
+      .hero-actions { justify-content: center; }
+      .hero-meta { justify-content: center; }
+      .hero-card { max-width: 340px; margin: 0 auto; }
+    }
+
+    /* ============================================================
+       ABOUT / STATS
+       ============================================================ */
+    .about-grid {
+      display: grid; grid-template-columns: 1.3fr 1fr;
+      gap: 2rem; align-items: start;
+    }
+    .about-text { color: var(--text-muted); font-size: .98rem; line-height: 1.8; }
+    .about-text strong { color: var(--text); }
+    .about-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .stat-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.3rem;
+      text-align: center;
+      box-shadow: var(--shadow);
+    }
+    .stat-card .num {
+      font-size: 1.8rem; font-weight: 800;
+      background: var(--accent-gradient);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .stat-card .label { font-size: .8rem; color: var(--text-muted); margin-top: .3rem; }
+
+    @media (max-width: 768px) {
+      .about-grid { grid-template-columns: 1fr; }
+      .about-stats { grid-template-columns: 1fr 1fr; }
+    }
+
+    /* ============================================================
+       TIMELINE
+       ============================================================ */
+    .timeline { position: relative; padding-left: 2rem; }
+    .timeline::before {
+      content: ''; position: absolute; left: 7px; top: 0; bottom: 0;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--accent), var(--accent-2), transparent);
+    }
+    .timeline-item { position: relative; margin-bottom: 2.2rem; }
+    .timeline-item::before {
+      content: ''; position: absolute; left: -2rem; top: .35rem;
+      width: 16px; height: 16px; border-radius: 50%;
+      background: var(--accent); border: 3px solid var(--bg);
+      box-shadow: 0 0 0 3px var(--accent);
+      transition: border-color .35s;
+    }
+    .timeline-item .meta {
+      font-size: .8rem; color: var(--accent);
+      font-weight: 600; margin-bottom: .2rem; letter-spacing: .5px;
+    }
+    .timeline-item h3 { font-size: 1.1rem; margin-bottom: .2rem; }
+    .timeline-item .company {
+      color: var(--text-muted); font-size: .88rem;
+      font-weight: 500; margin-bottom: .6rem;
+    }
+    .timeline-item p { color: var(--text-muted); font-size: .9rem; }
+
+    /* ============================================================
+       SKILLS / EDUCATION / PUBS
+       ============================================================ */
+    .skills-groups {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.2rem;
+    }
+    .skill-group h3 {
+      font-size: .95rem; margin-bottom: .8rem;
+      color: var(--accent); text-transform: uppercase; letter-spacing: .5px;
+    }
+    .skill-group .tags { display: flex; flex-wrap: wrap; gap: .1rem; }
+
+    .edu-grid, .pub-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.2rem;
+    }
+    .edu-item h3 { font-size: 1rem; margin-bottom: .2rem; }
+    .edu-item .inst { color: var(--text-muted); font-size: .85rem; }
+    .edu-item .year { color: var(--accent); font-size: .8rem; font-weight: 600; margin-top: .3rem; }
+    .cert-list { display: flex; flex-wrap: wrap; gap: .3rem; }
+    .pub-item h3 { font-size: .95rem; margin-bottom: .2rem; }
+    .pub-item .venue { color: var(--text-muted); font-size: .82rem; }
+    .pub-item .pub-link {
+      display: inline-block;
+      margin-top: .6rem;
+      font-size: .82rem;
+      font-weight: 600;
+      color: var(--accent);
+    }
+    .pub-item .pub-link:hover { text-decoration: underline; }
+
+    /* ============================================================
+       DOWNLOADS
+       ============================================================ */
+    .downloads-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+    .download-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.8rem;
+      display: flex; flex-direction: column;
+      box-shadow: var(--shadow);
+      transition: transform .25s, border-color .25s;
+    }
+    .download-card:hover { transform: translateY(-4px); border-color: var(--accent); }
+    .download-card .icon { font-size: 2rem; margin-bottom: .8rem; }
+    .download-card h3 { font-size: 1.1rem; margin-bottom: .4rem; }
+    .download-card p { color: var(--text-muted); font-size: .9rem; flex: 1; margin-bottom: 1.2rem; }
+
+    /* ============================================================
+       SERVICES
+       ============================================================ */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+    .service-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.8rem;
+      display: flex; flex-direction: column;
+      box-shadow: var(--shadow);
+      transition: transform .25s, border-color .25s;
+    }
+    .service-card:hover { transform: translateY(-5px); border-color: var(--accent); }
+    .service-icon { font-size: 2rem; margin-bottom: 1rem; }
+    .service-card h3 { font-size: 1.1rem; margin-bottom: .5rem; }
+    .service-card p { color: var(--text-muted); font-size: .9rem; flex: 1; margin-bottom: 1.2rem; }
+    .service-card .price {
+      font-size: .85rem; color: var(--accent);
+      font-weight: 600; margin-bottom: .8rem;
+    }
+    .service-card .btn { width: 100%; }
+    .topmate-banner {
+      margin-top: 2rem;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      display: flex; flex-wrap: wrap;
+      justify-content: space-between; align-items: center;
+      gap: 1rem;
+      box-shadow: var(--shadow);
+    }
+    .topmate-banner p { color: var(--text-muted); font-size: .9rem; }
+
+    /* ============================================================
+       FORMS
+       ============================================================ */
+    .form-wrapper {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      align-items: start;
+    }
+    .form-panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.8rem;
+      box-shadow: var(--shadow);
+      transition: background-color .35s, border-color .35s;
+    }
+    .form-panel h3 { font-size: 1.1rem; margin-bottom: .3rem; }
+    .form-panel .sub { color: var(--text-muted); font-size: .85rem; margin-bottom: 1.5rem; }
+    .form-group { margin-bottom: 1rem; }
+    .form-group label {
+      display: block; font-size: .82rem;
+      font-weight: 600; margin-bottom: .35rem;
+      color: var(--text-muted);
+      text-transform: uppercase; letter-spacing: .4px;
+    }
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: .8rem 1rem;
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-family: var(--font);
+      font-size: .92rem;
+      outline: none;
+      transition: border-color .2s, background-color .35s, color .35s;
+    }
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--glow); }
+    .form-group textarea { resize: vertical; min-height: 110px; }
+    .form-group select { appearance: none; cursor: pointer; }
+    .form-note { font-size: .78rem; color: var(--text-muted); margin-top: .8rem; text-align: center; }
+    .form-success {
+      display: none;
+      margin-top: 1rem;
+      padding: .8rem 1rem;
+      background: var(--glow);
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      border-radius: 8px;
+      font-size: .88rem;
+      text-align: center;
+    }
+    .form-success.show { display: block; }
+
+    @media (max-width: 768px) {
+      .form-wrapper { grid-template-columns: 1fr; }
+      .form-panel { padding: 1.4rem; }
+      .form-group input,
+      .form-group textarea,
+      .form-group select { font-size: 16px; } /* prevent iOS zoom */
+    }
+
+    /* ============================================================
+       FOOTER
+       ============================================================ */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2.5rem 0;
+      text-align: center;
+      transition: border-color .35s;
+    }
+    footer p { color: var(--text-muted); font-size: .85rem; }
+    .footer-links {
+      display: flex; flex-wrap: wrap;
+      justify-content: center; gap: 1.4rem;
+      margin-bottom: 1rem;
+    }
+    .footer-links a { color: var(--text-muted); font-size: .85rem; }
+    .footer-links a:hover { color: var(--accent); }
+    .footer-social { display: flex; justify-content: center; gap: .6rem; margin-bottom: 1rem; }
+
+    /* ============================================================
+       BACK TO TOP
+       ============================================================ */
+    .back-top {
+      position: fixed; bottom: 24px; right: 24px;
+      width: 46px; height: 46px;
+      border-radius: 50%;
+      background: var(--accent-gradient);
+      color: var(--avatar-text);
+      border: none;
+      font-size: 1.2rem; font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 8px 24px var(--glow);
+      opacity: 0; transform: translateY(20px);
+      transition: opacity .25s, transform .25s;
+      z-index: 150;
+    }
+    .back-top.show { opacity: 1; transform: translateY(0); }
+
+    /* ============================================================
+       SCROLL REVEAL
+       ============================================================ */
+    .reveal {
+      opacity: 0; transform: translateY(24px);
+      transition: opacity .6s ease, transform .6s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* Utility */
+    .text-accent { color: var(--accent); }
+    .text-muted { color: var(--text-muted); }
+  </style>
+</head>
+<body>
+
+  <!-- CUSTOM CURSOR -->
+  <div class="cursor-dot" aria-hidden="true"></div>
+  <div class="cursor-ring" aria-hidden="true"></div>
+
+  <!-- SCROLL PROGRESS -->
+  <div class="scroll-progress" aria-hidden="true"></div>
+
+  <!-- NAVBAR -->
+  <nav class="navbar" aria-label="Main navigation">
+    <div class="container nav-inner">
+      <a href="#top" class="nav-logo">Rajesh<span>.</span></a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#about">About</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#education">Education</a></li>
+        <li><a href="#downloads">Downloads</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#inquiry">Inquiry</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="theme-btn" id="themeBtn" aria-label="Switch theme" title="Switch theme">🌙</button>
+        <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header class="hero" id="top">
+    <div class="container hero-grid">
+      <div>
+        <p class="hero-eyebrow">Lead Data Engineer · Consultant · Career Coach</p>
+        <h1>Hi, I'm <span>Rajesh Kumar</span>.</h1>
+        <p class="hero-sub">
+          Results-driven Data Engineer with 6+ years of experience building scalable, end-to-end data solutions across Azure, AWS, and GCP. I also help professionals transition into data careers and consult on freelance data projects.
+        </p>
+        <div class="hero-actions">
+          <a href="#services" class="btn btn-primary">Explore Services</a>
+          <a href="#downloads" class="btn btn-outline">Download Resume</a>
+        </div>
+        <div class="hero-meta">
+          <a href="tel:+918810841429">📞 <strong>+91 8810841429</strong></a>
+          <a href="mailto:notify2rajesh@gmail.com">✉️ <strong>notify2rajesh@gmail.com</strong></a>
+          <span>📍 <strong>Sonbhadra, UP, India</strong></span>
+        </div>
+      </div>
+      <div class="hero-card">
+        <div class="avatar">RK</div>
+        <h3>Rajesh Kumar</h3>
+        <p>Lead Data Engineer @ MasterCard</p>
+        <p style="margin-top:.6rem;font-size:.82rem;">Snowflake · Databricks · PySpark · Kafka · Azure · AWS · GCP</p>
+
+        <div class="social-row">
+          <a class="social-btn" href="https://github.com/iiitchamp" target="_blank" rel="noopener" aria-label="GitHub" title="GitHub">
+            <svg viewBox="0 0 24 24"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.09 3.29 9.4 7.86 10.93.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.54-3.88-1.54-.53-1.34-1.29-1.7-1.29-1.7-1.05-.72.08-.71.08-.71 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.7 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.05 11.05 0 0 1 5.79 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.43-2.7 5.41-5.26 5.69.41.36.77 1.06.77 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z"/></svg>
+          </a>
+          <a class="social-btn" href="https://linkedin.com/in/krajesh07" target="_blank" rel="noopener" aria-label="LinkedIn" title="LinkedIn">
+            <svg viewBox="0 0 24 24"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.13 1.44-2.13 2.94v5.67H9.37V9h3.4v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13ZM7.12 20.45H3.56V9h3.56v11.45ZM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.22.79 24 1.77 24h20.45c.98 0 1.78-.78 1.78-1.73V1.73C24 .77 23.2 0 22.22 0Z"/></svg>
+          </a>
+          <a class="social-btn" href="https://topmate.io/krajesh" target="_blank" rel="noopener" aria-label="Topmate" title="Topmate">
+            <svg viewBox="0 0 24 24"><path d="M12 2 1 21h22L12 2zm0 4.84L19.1 19H4.9L12 6.84zM11 10h2v4h-2zm0 5h2v2h-2z"/></svg>
+          </a>
+          <a class="social-btn" href="mailto:notify2rajesh@gmail.com" aria-label="Email" title="Email">
+            <svg viewBox="0 0 24 24"><path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg>
+          </a>
+          <a class="social-btn" href="tel:+918810841429" aria-label="Phone" title="Phone">
+            <svg viewBox="0 0 24 24"><path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.02-.24c1.12.37 2.33.57 3.57.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.24.2 2.45.57 3.57a1 1 0 0 1-.24 1.02l-2.21 2.2z"/></svg>
+          </a>
+          <a class="social-btn" href="https://iiitchamp.github.io" target="_blank" rel="noopener" aria-label="Website" title="Website">
+            <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm6.93 6h-3a15.6 15.6 0 0 0-1.38-3.56A8.02 8.02 0 0 1 18.93 8zM12 4.04c.83 1.2 1.48 2.53 1.91 3.96h-3.82c.43-1.43 1.08-2.76 1.91-3.96zM4.26 14a8.13 8.13 0 0 1 0-4h3.44a16.6 16.6 0 0 0-.14 2c0 .68.05 1.34.14 2H4.26zm.81 2h3a15.6 15.6 0 0 0 1.38 3.56A8.02 8.02 0 0 1 5.07 16zm3-8h-3a8.02 8.02 0 0 1 4.38-3.56A15.6 15.6 0 0 0 8.07 8zM12 19.96c-.83-1.2-1.48-2.53-1.91-3.96h3.82c-.43 1.43-1.08 2.76-1.91 3.96zM14.34 14H9.66c-.1-.66-.16-1.32-.16-2 0-.68.06-1.34.16-2h4.68c.1.66.16 1.32.16 2 0 .68-.06 1.34-.16 2zm.19 5.56A15.6 15.6 0 0 0 15.91 16h3a8.02 8.02 0 0 1-4.38 3.56zM16.3 14a16.6 16.6 0 0 0 .14-2c0-.68-.05-1.34-.14-2h3.44a8.13 8.13 0 0 1 0 4h-3.44z"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ABOUT -->
+  <section class="section" id="about">
+    <div class="container">
+      <h2 class="section-title reveal">About Me</h2>
+      <div class="about-grid">
+        <div class="about-text reveal">
+          <p>
+            I am a <strong>Lead Data Engineer at MasterCard</strong> with a proven track record of designing and delivering enterprise-grade data platforms. My expertise spans the full modern data stack — from cloud data warehousing (<strong>Snowflake, Redshift</strong>) and big data processing (<strong>PySpark, Scala, Databricks</strong>) to orchestration (<strong>ADF, Airflow</strong>) and real-time streaming (<strong>Kafka, Structured Streaming</strong>).
+          </p>
+          <p style="margin-top:1rem;">
+            Beyond engineering, I am deeply passionate about <strong>knowledge sharing and career mentorship</strong>. I have guided dozens of professionals into data engineering roles through structured counselling, interview preparation, and resume optimization. I also take on selective freelance consulting projects where I can add measurable value to data-driven organizations.
+          </p>
+        </div>
+        <div class="about-stats reveal">
+          <div class="stat-card"><div class="num">6+</div><div class="label">Years Experience</div></div>
+          <div class="stat-card"><div class="num">3</div><div class="label">Cloud Platforms</div></div>
+          <div class="stat-card"><div class="num">4</div><div class="label">IEEE Publications</div></div>
+          <div class="stat-card"><div class="num">30+</div><div class="label">Team Members Led</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section class="section" id="experience">
+    <div class="container">
+      <h2 class="section-title reveal">Professional Experience</h2>
+      <div class="timeline reveal">
+        <div class="timeline-item">
+          <div class="meta">Jun 2026 – Present</div>
+          <h3>Lead Data Engineer</h3>
+          <div class="company">MasterCard (via Quesscorp) · Sonbhadra / Remote</div>
+          <p>Architected a trust intelligence framework integrating TrueBiz and RiskRecon data to generate merchant risk insights. Led cross-functional teams across Data Engineering, Data Science, Product, QA, and external vendors. Built scalable pipelines and inference workflows using Databricks on AWS, MLflow, and Mosaic AI. Developed REST-based inference endpoints integrated with Mastercard's legacy MATCH platform.</p>
+        </div>
+        <div class="timeline-item">
+          <div class="meta">Jun 2025 – May 2026</div>
+          <h3>Senior Data Engineer II</h3>
+          <div class="company">Syneos Health (via KPI Partners) · Remote</div>
+          <p>Led 20 data engineers and 10 analysts in designing enterprise-grade pipelines on Azure Data Lake Gen2, Databricks, and Snowflake. Implemented real-time Kafka/Structured Streaming pipelines for telematics and IoT use cases. Championed cost optimization across ADF, Databricks, and ADLS. Hands-on with GenAI, Agentic AI, Terraform, dbt tests, and AWS Lambda/Glue.</p>
+        </div>
+        <div class="timeline-item">
+          <div class="meta">Sep 2024 – Mar 2025</div>
+          <h3>Senior Data Engineer</h3>
+          <div class="company">Gartner (via Bitwise Solutions) · Remote</div>
+          <p>Built ETL pipelines with ADF, developed Databricks workflows using PySpark and SQL, and implemented CI/CD pipelines. Automated alerts via Azure Logic Apps and managed Snowflake integration for data warehousing.</p>
+        </div>
+        <div class="timeline-item">
+          <div class="meta">Jul 2022 – Sep 2024</div>
+          <h3>Data Engineer</h3>
+          <div class="company">McKesson (via Tech Mahindra) · Remote</div>
+          <p>Responsible for scalable data storage on ADLS Gen2, ETL pipelines with ADF, Databricks processing with PySpark, and Snowflake integration. Also worked as AWS Data Engineer on Glue, Lambda, Kinesis, Redshift, and Azkaban orchestration.</p>
+        </div>
+        <div class="timeline-item">
+          <div class="meta">Feb 2022 – Jul 2022</div>
+          <h3>Python Developer (Intern)</h3>
+          <div class="company">Tech Mahindra · Remote</div>
+          <p>Developed automation scripts in Python, built ETL pipelines, and created Power BI dashboards. Migrated 20+ client projects and received multiple client appreciations.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section class="section" id="skills">
+    <div class="container">
+      <h2 class="section-title reveal">Technical Skills</h2>
+      <div class="skills-groups reveal">
+        <div class="skill-group">
+          <h3>Languages &amp; Frameworks</h3>
+          <div class="tags">
+            <span class="tag">Python</span><span class="tag">Scala</span><span class="tag">Java</span><span class="tag">SQL</span><span class="tag">Flask</span><span class="tag">Django</span><span class="tag">PySpark</span><span class="tag">Pandas</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h3>Big Data &amp; Streaming</h3>
+          <div class="tags">
+            <span class="tag">Apache Spark</span><span class="tag">Kafka</span><span class="tag">Structured Streaming</span><span class="tag">Hive</span><span class="tag">Hadoop</span><span class="tag">Databricks</span><span class="tag">Kinesis</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h3>Cloud Platforms</h3>
+          <div class="tags">
+            <span class="tag">Azure (ADLS, ADF, Databricks, Logic Apps)</span><span class="tag">AWS (S3, Redshift, Glue, Lambda, Kinesis)</span><span class="tag">GCP</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h3>Databases &amp; Warehousing</h3>
+          <div class="tags">
+            <span class="tag">Snowflake</span><span class="tag">Redshift</span><span class="tag">MySQL</span><span class="tag">Cassandra</span><span class="tag">DynamoDB</span><span class="tag">SQL Server</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h3>DevOps &amp; Tools</h3>
+          <div class="tags">
+            <span class="tag">Git</span><span class="tag">CI/CD</span><span class="tag">Jenkins</span><span class="tag">Azkaban</span><span class="tag">Airflow</span><span class="tag">Docker</span><span class="tag">Terraform</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h3>BI &amp; Visualization</h3>
+          <div class="tags">
+            <span class="tag">Tableau</span><span class="tag">Power BI</span><span class="tag">MicroStrategy</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EDUCATION + PUBLICATIONS -->
+  <section class="section" id="education">
+    <div class="container">
+      <h2 class="section-title reveal">Education &amp; Certifications</h2>
+      <div class="edu-grid reveal">
+        <div class="card edu-item">
+          <h3>Doctor of Business Administration (DBA) — AI/ML</h3>
+          <div class="inst">Rushford Business School, Switzerland</div>
+          <div class="year">2026 – Present</div>
+        </div>
+        <div class="card edu-item">
+          <h3>M.Tech (IT)</h3>
+          <div class="inst">NIT Raipur</div>
+          <div class="year">2020 – 2022 · 7.80 CGPA</div>
+        </div>
+        <div class="card edu-item">
+          <h3>B.Tech (CSE)</h3>
+          <div class="inst">IIIT Senapati, Manipur</div>
+          <div class="year">2015 – 2019 · 6.33 CGPA</div>
+        </div>
+      </div>
+
+      <h3 style="margin-top:2.5rem;margin-bottom:1rem;font-size:1rem;" class="reveal">Selected Certifications</h3>
+      <div class="cert-list reveal">
+        <span class="tag">Flask Python</span><span class="tag">Spark: PySpark</span><span class="tag">Kafka Basics</span><span class="tag">Databricks</span><span class="tag">Data Science Foundations</span><span class="tag">Hadoop: MapReduce</span><span class="tag">Machine Learning using Python</span><span class="tag">Cloud Computing</span><span class="tag">Django</span><span class="tag">SQL &amp; Analytics</span>
+      </div>
+
+      <h3 style="margin-top:2.5rem;margin-bottom:1rem;font-size:1rem;" class="reveal">Publications &amp; Achievements</h3>
+      <div class="pub-grid reveal">
+        <div class="card pub-item">
+          <h3>Use of Hybrid ECC to Enhance Security and Privacy with Data Deduplication</h3>
+          <div class="venue">IEEE ICESC 2021 · DOI: 10.1109/ICESC51422.2021.9532948</div>
+          <a class="pub-link" href="https://doi.org/10.1109/ICESC51422.2021.9532948" target="_blank" rel="noopener">View Paper (DOI) →</a>
+        </div>
+        <div class="card pub-item">
+          <h3>Palm Print Recognition and Authentication Using Digital Image Processing</h3>
+          <div class="venue">IJCRT, Vol. 9, Issue 12 · DOI: 10.5281/zenodo.5822560</div>
+          <a class="pub-link" href="https://doi.org/10.5281/zenodo.5822560" target="_blank" rel="noopener">View Paper (DOI) →</a>
+        </div>
+        <div class="card pub-item">
+          <h3>A Case Study on Software Defect Prediction</h3>
+          <div class="venue">IRJET, Vol. 8, Issue 12 · DOI: 10.13140/RG.2.2.27691.36642</div>
+          <a class="pub-link" href="https://doi.org/10.13140/RG.2.2.27691.36642" target="_blank" rel="noopener">View Paper (DOI) →</a>
+        </div>
+        <div class="card pub-item">
+          <h3>Hybrid Consensus Approach for Blockchain-Based Vehicular Communication</h3>
+          <div class="venue">IEEE ICPCT 2022 · March 2022</div>
+          <a class="pub-link" href="https://ieeexplore.ieee.org/search/searchresult.jsp?queryText=Hybrid%20Consensus%20Approach%20for%20Blockchain%20based%20Vehicular%20Communication" target="_blank" rel="noopener">Find on IEEE Xplore →</a>
+        </div>
+      </div>
+      <p style="margin-top:1rem;color:var(--text-muted);font-size:.85rem;" class="reveal">
+        🏅 Best Athlete (NIT Raipur, 3×) · 8 Gold, 5 Silver, 3 Bronze Medals · 6 National Marathons · Best Scout (2011)
+      </p>
+    </div>
+  </section>
+
+  <!-- DOWNLOADS -->
+  <section class="section" id="downloads">
+    <div class="container">
+      <h2 class="section-title reveal">Downloads</h2>
+      <p style="color:var(--text-muted);margin-bottom:2rem;max-width:680px;" class="reveal">
+        Download my latest resume and cover letter. Both PDFs are kept in sync with this site.
+      </p>
+      <div class="downloads-grid">
+        <div class="download-card reveal">
+          <div class="icon">📄</div>
+          <h3>Resume / CV</h3>
+          <p>Full 4-page resume with complete work history, education, publications, and certifications. Updated regularly.</p>
+          <a class="btn btn-primary" href="Rajesh_Kumar_Resume.pdf" download>Download Resume (PDF)</a>
+        </div>
+        <div class="download-card reveal">
+          <div class="icon">✉️</div>
+          <h3>Cover Letter</h3>
+          <p>Tailored cover letter for Senior Data Engineer / Lead Data Engineer roles. Ready to send to recruiters.</p>
+          <a class="btn btn-primary" href="Rajesh_Kumar_Cover_Letter.pdf" download>Download Cover Letter (PDF)</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="section" id="services">
+    <div class="container">
+      <h2 class="section-title reveal">Services &amp; Consultation</h2>
+      <p style="color:var(--text-muted);margin-bottom:2rem;max-width:680px;" class="reveal">
+        Whether you are an individual looking to break into data engineering or an organization seeking expert freelance support, choose the engagement that fits your needs. Paid sessions are booked securely through <strong>Topmate</strong>; custom project inquiries go through the form below.
+      </p>
+
+      <div class="services-grid">
+        <div class="service-card reveal">
+          <div class="service-icon">🎯</div>
+          <h3>Career Counselling &amp; Job Guidance</h3>
+          <p>Personalized roadmap for transitioning into Data Engineering or Data Analytics. Includes skill gap analysis, project recommendations, and a 30-day action plan.</p>
+          <div class="price">via Topmate · 1:1 Video Session</div>
+          <a href="https://topmate.io/krajesh/1479673" target="_blank" rel="noopener" class="btn btn-primary">Book on Topmate</a>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon">🎤</div>
+          <h3>Mock Data Engineering Interview</h3>
+          <p>Realistic 45-minute mock interview covering SQL, PySpark, system design, and behavioral rounds. Detailed feedback and improvement report included.</p>
+          <div class="price">via Topmate · 45 mins</div>
+          <a href="https://topmate.io/krajesh/1514021/pay" target="_blank" rel="noopener" class="btn btn-primary">Book on Topmate</a>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon">📄</div>
+          <h3>ATS-Optimized Resume &amp; CV</h3>
+          <p>Long-format and one-page ATS-optimized CV tailored for Data Engineering and Data Analytics roles. Includes LinkedIn profile overhaul guidance.</p>
+          <div class="price">via Topmate · Digital Product + Review</div>
+          <a href="https://topmate.io/krajesh/1479814" target="_blank" rel="noopener" class="btn btn-primary">Get on Topmate</a>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon">⚙️</div>
+          <h3>Freelance Data Engineering</h3>
+          <p>End-to-end pipeline development, cloud migration, data warehouse design, or real-time streaming implementation for your organization. Scoped per project.</p>
+          <div class="price">Custom quote · Inquiry required</div>
+          <a href="#inquiry" class="btn btn-outline" data-service="freelance">Request a Quote</a>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon">🧠</div>
+          <h3>Technical Consultation</h3>
+          <p>Architecture reviews, tool selection (Snowflake vs. Databricks vs. Redshift), performance tuning, or cost-optimization audits for your data stack.</p>
+          <div class="price">Hourly / package · Inquiry required</div>
+          <a href="#inquiry" class="btn btn-outline" data-service="consulting">Request Consultation</a>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon">🌱</div>
+          <h3>NGO Setup &amp; Management</h3>
+          <p>End-to-end legal, documentation, and operational support for establishing and managing an NGO. Also includes website and app MVP support.</p>
+          <div class="price">via Topmate · 30 mins · 11-product package</div>
+          <a href="https://topmate.io/krajesh/1479675" target="_blank" rel="noopener" class="btn btn-primary">Book on Topmate</a>
+        </div>
+      </div>
+
+      <div class="topmate-banner reveal">
+        <p>🔗 Browse all services, digital products, and priority DM options on my Topmate profile.</p>
+        <a href="https://topmate.io/krajesh" target="_blank" rel="noopener" class="btn btn-primary">View Full Topmate Profile →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- INQUIRY FORMS -->
+  <section class="section" id="inquiry">
+    <div class="container">
+      <h2 class="section-title reveal">Get in Touch</h2>
+      <p style="color:var(--text-muted);margin-bottom:2rem;max-width:680px;" class="reveal">
+        For paid 1:1 sessions, please book directly on Topmate. For custom freelance projects or technical consulting, submit the form and I will respond within 2 business days.
+      </p>
+
+      <div class="form-wrapper">
+        <!-- FREELANCE FORM -->
+        <div class="form-panel reveal">
+          <h3>💼 Freelance Project Inquiry</h3>
+          <p class="sub">Tell me about your data engineering or analytics project.</p>
+          <form id="freelanceForm" action="https://formspree.io/f/YOUR_FREELANCE_FORM_ID" method="POST">
+            <input type="hidden" name="_subject" value="Freelance Inquiry — Rajesh Kumar Portfolio">
+            <input type="hidden" name="_replyto" value="">
+            <input type="hidden" name="form_type" value="freelance">
+            <div class="form-group">
+              <label for="f-name">Full Name *</label>
+              <input type="text" id="f-name" name="name" required placeholder="Your name" autocomplete="name">
+            </div>
+            <div class="form-group">
+              <label for="f-email">Work Email *</label>
+              <input type="email" id="f-email" name="email" required placeholder="you@company.com" autocomplete="email">
+            </div>
+            <div class="form-group">
+              <label for="f-company">Company / Organization</label>
+              <input type="text" id="f-company" name="company" placeholder="Company name" autocomplete="organization">
+            </div>
+            <div class="form-group">
+              <label for="f-project-type">Project Type *</label>
+              <select id="f-project-type" name="project_type" required>
+                <option value="">Select one</option>
+                <option>ETL / ELT Pipeline Development</option>
+                <option>Cloud Data Warehouse (Snowflake / Redshift)</option>
+                <option>Real-Time Streaming (Kafka / Kinesis)</option>
+                <option>Databricks / PySpark Engineering</option>
+                <option>Data Migration &amp; Architecture</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="f-message">Project Description *</label>
+              <textarea id="f-message" name="message" required placeholder="Describe scope, timeline, and any specific technologies..."></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary" style="width:100%;">Submit Inquiry</button>
+            <div class="form-success" id="f-success">✅ Thank you! Your inquiry has been sent. I'll reply within 2 business days.</div>
+            <p class="form-note">Powered by Formspree · Replies to notify2rajesh@gmail.com</p>
+          </form>
+        </div>
+
+        <!-- CONSULTING FORM -->
+        <div class="form-panel reveal">
+          <h3>🛠️ Technical Consultation Inquiry</h3>
+          <p class="sub">Request an architecture review, audit, or advisory session.</p>
+          <form id="consultingForm" action="https://formspree.io/f/YOUR_CONSULTING_FORM_ID" method="POST">
+            <input type="hidden" name="_subject" value="Consultation Inquiry — Rajesh Kumar Portfolio">
+            <input type="hidden" name="_replyto" value="">
+            <input type="hidden" name="form_type" value="consulting">
+            <div class="form-group">
+              <label for="c-name">Full Name *</label>
+              <input type="text" id="c-name" name="name" required placeholder="Your name" autocomplete="name">
+            </div>
+            <div class="form-group">
+              <label for="c-email">Email *</label>
+              <input type="email" id="c-email" name="email" required placeholder="you@email.com" autocomplete="email">
+            </div>
+            <div class="form-group">
+              <label for="c-area">Consultation Area *</label>
+              <select id="c-area" name="consultation_area" required>
+                <option value="">Select one</option>
+                <option>Data Architecture Review</option>
+                <option>Cloud Cost Optimization</option>
+                <option>Snowflake / Databricks Tooling Strategy</option>
+                <option>Real-Time Streaming Design</option>
+                <option>GenAI / Agentic AI Feasibility</option>
+                <option>Career / Team Mentoring (Corporate)</option>
+                <option>Other Technical Advisory</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="c-context">Current Stack / Context</label>
+              <input type="text" id="c-context" name="current_stack" placeholder="e.g., Azure + Databricks + Snowflake">
+            </div>
+            <div class="form-group">
+              <label for="c-message">What challenge are you facing? *</label>
+              <textarea id="c-message" name="message" required placeholder="Describe the problem, constraints, and desired outcome..."></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary" style="width:100%;">Request Consultation</button>
+            <div class="form-success" id="c-success">✅ Thank you! Your consultation request has been sent. I'll reply within 2 business days.</div>
+            <p class="form-note">Powered by Formspree · Replies to notify2rajesh@gmail.com</p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer id="contact">
+    <div class="container">
+      <div class="footer-social">
+        <a class="social-btn" href="https://github.com/iiitchamp" target="_blank" rel="noopener" aria-label="GitHub" title="GitHub">
+          <svg viewBox="0 0 24 24"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.09 3.29 9.4 7.86 10.93.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.54-3.88-1.54-.53-1.34-1.29-1.7-1.29-1.7-1.05-.72.08-.71.08-.71 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.7 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.05 11.05 0 0 1 5.79 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.43-2.7 5.41-5.26 5.69.41.36.77 1.06.77 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z"/></svg>
+        </a>
+        <a class="social-btn" href="https://linkedin.com/in/krajesh07" target="_blank" rel="noopener" aria-label="LinkedIn" title="LinkedIn">
+          <svg viewBox="0 0 24 24"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.13 1.44-2.13 2.94v5.67H9.37V9h3.4v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13ZM7.12 20.45H3.56V9h3.56v11.45ZM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.22.79 24 1.77 24h20.45c.98 0 1.78-.78 1.78-1.73V1.73C24 .77 23.2 0 22.22 0Z"/></svg>
+        </a>
+        <a class="social-btn" href="https://topmate.io/krajesh" target="_blank" rel="noopener" aria-label="Topmate" title="Topmate">
+          <svg viewBox="0 0 24 24"><path d="M12 2 1 21h22L12 2zm0 4.84L19.1 19H4.9L12 6.84zM11 10h2v4h-2zm0 5h2v2h-2z"/></svg>
+        </a>
+        <a class="social-btn" href="mailto:notify2rajesh@gmail.com" aria-label="Email" title="Email">
+          <svg viewBox="0 0 24 24"><path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg>
+        </a>
+        <a class="social-btn" href="tel:+918810841429" aria-label="Phone" title="Phone">
+          <svg viewBox="0 0 24 24"><path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.02-.24c1.12.37 2.33.57 3.57.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.24.2 2.45.57 3.57a1 1 0 0 1-.24 1.02l-2.21 2.2z"/></svg>
+        </a>
+        <a class="social-btn" href="https://iiitchamp.github.io" target="_blank" rel="noopener" aria-label="Website" title="Website">
+          <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm6.93 6h-3a15.6 15.6 0 0 0-1.38-3.56A8.02 8.02 0 0 1 18.93 8zM12 4.04c.83 1.2 1.48 2.53 1.91 3.96h-3.82c.43-1.43 1.08-2.76 1.91-3.96zM4.26 14a8.13 8.13 0 0 1 0-4h3.44a16.6 16.6 0 0 0-.14 2c0 .68.05 1.34.14 2H4.26zm.81 2h3a15.6 15.6 0 0 0 1.38 3.56A8.02 8.02 0 0 1 5.07 16zm3-8h-3a8.02 8.02 0 0 1 4.38-3.56A15.6 15.6 0 0 0 8.07 8zM12 19.96c-.83-1.2-1.48-2.53-1.91-3.96h3.82c-.43 1.43-1.08 2.76-1.91 3.96zM14.34 14H9.66c-.1-.66-.16-1.32-.16-2 0-.68.06-1.34.16-2h4.68c.1.66.16 1.32.16 2 0 .68-.06 1.34-.16 2zm.19 5.56A15.6 15.6 0 0 0 15.91 16h3a8.02 8.02 0 0 1-4.38 3.56zM16.3 14a16.6 16.6 0 0 0 .14-2c0-.68-.05-1.34-.14-2h3.44a8.13 8.13 0 0 1 0 4h-3.44z"/></svg>
+        </a>
+      </div>
+      <div class="footer-links">
+        <a href="mailto:notify2rajesh@gmail.com">notify2rajesh@gmail.com</a>
+        <a href="tel:+918810841429">+91 8810841429</a>
+        <a href="https://github.com/iiitchamp" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://linkedin.com/in/krajesh07" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://topmate.io/krajesh" target="_blank" rel="noopener">Topmate</a>
+        <a href="#downloads">Resume</a>
+        <a href="#downloads">Cover Letter</a>
+      </div>
+      <p>© <span id="year"></span> Rajesh Kumar · Sonbhadra, UP, India</p>
+      <p style="margin-top:.3rem;">Built for GitHub Pages · Fully responsive · Dark / Light / Eye-friendly themes</p>
+    </div>
+  </footer>
+
+  <button class="back-top" id="backTop" aria-label="Back to top">↑</button>
+
+  <script>
+    /* ============================================================
+       THEME SWITCHER (dark → light → eye → dark)
+       ============================================================ */
+    (function () {
+      var root = document.documentElement;
+      var btn = document.getElementById('themeBtn');
+      var icons = { dark: '🌙', light: '☀️', eye: '👁️' };
+      var order = ['dark', 'light', 'eye'];
+
+      function apply(theme) {
+        root.setAttribute('data-theme', theme);
+        btn.textContent = icons[theme];
+        btn.title = 'Theme: ' + theme.charAt(0).toUpperCase() + theme.slice(1) + ' (click to change)';
+        try { localStorage.setItem('theme', theme); } catch (e) {}
+      }
+
+      btn.addEventListener('click', function () {
+        var cur = root.getAttribute('data-theme') || 'dark';
+        var next = order[(order.indexOf(cur) + 1) % order.length];
+        apply(next);
+      });
+
+      apply(root.getAttribute('data-theme') || 'dark');
+    })();
+
+    /* ============================================================
+       NAV TOGGLE
+       ============================================================ */
+    (function () {
+      var toggle = document.getElementById('navToggle');
+      var links = document.getElementById('navLinks');
+      toggle.addEventListener('click', function () {
+        var open = links.classList.toggle('open');
+        toggle.setAttribute('aria-expanded', open);
+      });
+      links.querySelectorAll('a').forEach(function (a) {
+        a.addEventListener('click', function () {
+          links.classList.remove('open');
+          toggle.setAttribute('aria-expanded', 'false');
+        });
+      });
+    })();
+
+    /* ============================================================
+       CUSTOM CURSOR (dual layer)
+       ============================================================ */
+    (function () {
+      if (window.matchMedia('(hover: none), (pointer: coarse)').matches) return;
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+      var dot = document.querySelector('.cursor-dot');
+      var ring = document.querySelector('.cursor-ring');
+      var ringX = window.innerWidth / 2, ringY = window.innerHeight / 2;
+      var mx = ringX, my = ringY;
+
+      document.body.classList.add('cursor-enabled');
+
+      document.addEventListener('mousemove', function (e) {
+        mx = e.clientX; my = e.clientY;
+        dot.style.transform = 'translate(' + mx + 'px,' + my + 'px) translate(-50%,-50%)';
+      });
+
+      function animate() {
+        ringX += (mx - ringX) * 0.18;
+        ringY += (my - ringY) * 0.18;
+        ring.style.transform = 'translate(' + ringX + 'px,' + ringY + 'px) translate(-50%,-50%)';
+        requestAnimationFrame(animate);
+      }
+      animate();
+
+      var hoverTargets = 'a, button, .tag, .service-card, .download-card, .social-btn, input, textarea, select';
+      document.querySelectorAll(hoverTargets).forEach(function (el) {
+        el.addEventListener('mouseenter', function () { ring.classList.add('hovering'); });
+        el.addEventListener('mouseleave', function () { ring.classList.remove('hovering'); });
+      });
+    })();
+
+    /* ============================================================
+       SCROLL PROGRESS + BACK TO TOP
+       ============================================================ */
+    (function () {
+      var progress = document.querySelector('.scroll-progress');
+      var backTop = document.getElementById('backTop');
+
+      function update() {
+        var h = document.documentElement;
+        var scrolled = h.scrollTop / (h.scrollHeight - h.clientHeight || 1);
+        progress.style.width = (scrolled * 100) + '%';
+        if (h.scrollTop > 400) backTop.classList.add('show');
+        else backTop.classList.remove('show');
+      }
+      window.addEventListener('scroll', update, { passive: true });
+      update();
+
+      backTop.addEventListener('click', function () {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    })();
+
+    /* ============================================================
+       SCROLL REVEAL
+       ============================================================ */
+    (function () {
+      var els = document.querySelectorAll('.reveal');
+      if (!('IntersectionObserver' in window)) {
+        els.forEach(function (el) { el.classList.add('visible'); });
+        return;
+      }
+      var obs = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+      els.forEach(function (el) { obs.observe(el); });
+    })();
+
+    /* ============================================================
+       SERVICE CARD → FORM PREFILL
+       ============================================================ */
+    document.querySelectorAll('[data-service]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var service = btn.getAttribute('data-service');
+        setTimeout(function () {
+          if (service === 'freelance') {
+            var field = document.getElementById('f-message');
+            if (field && !field.value) {
+              field.value = 'I would like to discuss a freelance data engineering project. ';
+              field.focus();
+            }
+          } else if (service === 'consulting') {
+            var field = document.getElementById('c-message');
+            if (field && !field.value) {
+              field.value = 'I would like to request a technical consultation. ';
+              field.focus();
+            }
+          }
+        }, 400);
+      });
+    });
+
+    /* ============================================================
+       DYNAMIC YEAR
+       ============================================================ */
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    /* ============================================================
+       FORM SUBMIT (AJAX + inline success, keeps user on page)
+       ============================================================ */
+    document.querySelectorAll('form').forEach(function (form) {
+      form.addEventListener('submit', function (e) {
+        var action = form.getAttribute('action') || '';
+        if (action.indexOf('YOUR_') !== -1) {
+          // Formspree not configured yet — show a friendly alert
+          e.preventDefault();
+          alert('Form is ready but needs a Formspree endpoint. Please follow the setup instructions in the documentation.');
+          return;
+        }
+
+        e.preventDefault();
+        var btn = form.querySelector('button[type="submit"]');
+        var original = btn.textContent;
+        btn.textContent = 'Sending…';
+        btn.disabled = true;
+
+        var formId = form.id;
+        var successEl = document.getElementById(formId === 'freelanceForm' ? 'f-success' : 'c-success');
+
+        fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { 'Accept': 'application/json' }
+        })
+        .then(function (res) {
+          if (res.ok) {
+            form.reset();
+            if (successEl) {
+              successEl.classList.add('show');
+              setTimeout(function () { successEl.classList.remove('show'); }, 8000);
+            }
+          } else {
+            alert('Submission failed. Please email notify2rajesh@gmail.com directly.');
+          }
+        })
+        .catch(function () {
+          alert('Network error. Please email notify2rajesh@gmail.com directly.');
+        })
+        .finally(function () {
+          btn.textContent = original;
+          btn.disabled = false;
+        });
+      });
+    });
+  </script>
+</body>
+</html>
